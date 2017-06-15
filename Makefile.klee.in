@@ -13,6 +13,7 @@ AR         = $(TOOLDIR)@ARCHIVER@
 LD         = $(TOOLDIR)@LINKER@
 NM         = $(TOOLDIR)@NM@
 OBJDUMP = $(TOOLDIR)@OBJDUMP@
+OPT = $(TOOLDIR)@OPT@
 
 # We don't want to strip any debug symbols
 STRIPTOOL  = true

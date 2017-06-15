@@ -102,6 +102,7 @@ cmd_compile-m = $(CC) $^ -c -o $@ $(CFLAGS) $(ARCH_CFLAGS) $(CFLAGS-$(suffix $@)
 cmd_strip     = $(STRIPTOOL) $(STRIP_FLAGS) $^
 cmd_t_strip   = $(STRIPTOOL) $(STRIP_FLAGS) $@
 cmd_ar        = $(AR) $(ARFLAGS) $@ $^
+cmd_opt       = $(OPT) -mem2reg $@ -o $@
 
 compile.c = @$(disp_compile.c) ; $(cmd_compile.c)
 compile.i = $(cmd_compile.c:-c=-E -dD)
@@ -172,13 +173,19 @@ CFLAGS-.os+=$(PICFLAG)
 CFLAGS-.oS+=$(PICFLAG) -DSHARED
 
 %.o:  %.c ; $(compile.c)
-%.os: %.c ; $(compile.c)
+%.os: %.c
+	$(compile.c)
+	$(cmd_opt)
 %.oS: %.c ; $(compile.c)
 %.o:  %.S ; $(compile.S)
-%.os: %.S ; $(compile.S)
+%.os: %.S
+	$(compile.S)
+	$(cmd_opt)
 %.oS: %.S ; $(compile.S)
 %.o:  %.s ; $(compile.S)
-%.os: %.s ; $(compile.S)
+%.os: %.s
+	$(compile.S)
+	$(cmd_opt)
 %.oS: %.s ; $(compile.S)
 %.i:  %.c ; $(compile.i)
 %.i:  %.S ; $(compile.i)
