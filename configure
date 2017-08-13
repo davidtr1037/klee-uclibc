@@ -379,7 +379,8 @@ def handleLLVMConfig(pargs, cc=None):
         'NM' : ['llvm-nm'],
         'ARCHIVER' : ['llvm-ar'],
         'LINKER': ['llvm-link', 'llvm-ld' ], # Two possible tools to use as linker
-        'OBJDUMP': ['llvm-objdump']
+        'OBJDUMP': ['llvm-objdump'],
+        'OPT': ['opt']
     }
 
     for (name,toolNames) in llvmDeps.items():
